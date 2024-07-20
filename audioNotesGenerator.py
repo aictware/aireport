@@ -19,10 +19,14 @@ class AudioNotesGenerator:
         return self.remove_str(transcription.text) # 트랜스크립션 결과 반환
 
     def audio_notes(self, transcription):
-        abstract_summary = self.abstract_summary_extraction(self.remove_str(transcription))
-        key_points = self.key_points_extraction(self.remove_str(transcription)) # 주요 요점 추출
-        action_items = self.action_item_extraction(self.remove_str(transcription)) # 작업 항목 추출
-        sentiment = self.sentiment_analysis(self.remove_str(transcription)) # 감정 분석
+        # abstract_summary = self.abstract_summary_extraction(self.remove_str(transcription))
+        # key_points = self.key_points_extraction(self.remove_str(transcription)) # 주요 요점 추출
+        # action_items = self.action_item_extraction(self.remove_str(transcription)) # 작업 항목 추출
+        # sentiment = self.sentiment_analysis(self.remove_str(transcription)) # 감정 분석
+        abstract_summary = self.abstract_summary_extraction(transcription)
+        key_points = self.key_points_extraction(transcription) # 주요 요점 추출
+        action_items = self.action_item_extraction(transcription) # 작업 항목 추출
+        sentiment = self.sentiment_analysis(transcription) # 감정 분석
         return { 
             'abstract_summary': abstract_summary, # 요약 반환
             'key_points': key_points, # 주요 요점 반환
@@ -45,7 +49,7 @@ class AudioNotesGenerator:
             messages=[
                 {
                     "role": "system",
-                    "content": "You are a highly skilled AI trained in language comprehension and summarization..." 
+                    "content": "You are a highly skilled AI trained in language comprehension and summarization... Write in Korean " 
                 },
                 {
                     "role": "user",
@@ -62,7 +66,7 @@ class AudioNotesGenerator:
             messages=[
                 {
                     "role": "system",
-                    "content": "You are a proficient AI with a specialty in distilling information into key points..."
+                    "content": "You are a proficient AI with a specialty in distilling information into key points...Write in Korean"
                 },
                 {
                     "role": "user",
@@ -79,7 +83,7 @@ class AudioNotesGenerator:
             messages=[
                 {
                     "role": "system",
-                    "content": "You are an AI expert in analyzing conversations and extracting action items..."
+                    "content": "You are an AI expert in analyzing conversations and extracting action items...Write in Korean"
                 },
                 {
                     "role": "user",
@@ -97,7 +101,7 @@ class AudioNotesGenerator:
             messages=[
                 {
                     "role": "system",
-                    "content": "As an AI with expertise in language and emotion analysis, your task is to analyze the sentiment..."
+                    "content": "As an AI with expertise in language and emotion analysis, your task is to analyze the sentiment...Write in Korean"
                 },
                 {
                     "role": "user",
@@ -129,7 +133,9 @@ if __name__ == "__main__":
 
     # 오디오 파일 경로 설정
     #file_path = "memo1.m4a"
-    audio_file_path = "test.m4a"
+    audio_file_path = "./mp3/meeting1.mp3"
+    #audio_file_path = "./mp3/speech1.mp3"
+    #audio_file_path = "./mp3/speech2.mp3"
     # 출력 파일 이름 설정
     output_filename = "notes.docx"
     # AudioNotesGenerator 인스턴스 생성
